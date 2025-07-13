@@ -30,3 +30,14 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+
+*.yml
+*.yaml
+*.json
+*.ini
+!*.example.yml
+!*.example.yaml
+!*.example.json
+!*.example.ini
+
+*.ps1
