@@ -40,7 +40,7 @@ go.work.sum
 !*.example.json
 !*.example.ini
 !goreleaser.yaml
-!.github/workflows/** */
+!.github/workflows/**
 
 *.ps1
 
