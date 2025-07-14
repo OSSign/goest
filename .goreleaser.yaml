@@ -96,16 +96,6 @@ dockers:
     image_templates:
     - ghcr.io/ossign/goest:{{ .Tag }}-linux-arm64
     - ossign/goest:{{ .Tag }}-linux-arm64
-  - id: goest-windows-amd64
-    use: docker
-    goos: windows
-    goarch: amd64
-    dockerfile: windows.Dockerfile
-    image_templates:
-    - ghcr.io/ossign/goest:{{ .Tag }}-windows-amd64
-    - ghcr.io/ossign/goest:{{ .Tag }}-windows
-    - ossign/goest:{{ .Tag }}-windows-amd64
-    - ossign/goest:{{ .Tag }}-windows
 
 docker_manifests:
   - name_template: ghcr.io/ossign/goest:latest

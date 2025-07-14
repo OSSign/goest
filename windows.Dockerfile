@@ -1,5 +1,7 @@
-FROM scratch
+FROM mcr.microsoft.com/windows/nanoserver:ltsc2025
 
-COPY goest.exe /goest.exe
+WORKDIR C:\a
 
-ENTRYPOINT [ "/goest.exe" ]
+COPY goest.exe C:\a\goest.exe
+
+ENTRYPOINT [ "C:\a\goest.exe" ]
