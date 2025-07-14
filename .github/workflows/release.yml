@@ -40,6 +40,8 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y goast
 
+        echo '${{ secrets.GOEST_CONFIG }}' >> config.yaml
+
     - name: Goreleaser
       uses: goreleaser/goreleaser-action@v6
       with:
@@ -56,4 +58,3 @@ jobs:
       with:
         name: release
         path: dist/**
-
