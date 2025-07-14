@@ -1,0 +1,96 @@
+version: 2
+
+builds:
+  - main: ./cmd/
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+
+
+archives:
+  - format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+
+    format_overrides:
+      - goos: windows
+        format: zip
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+
+nfpms:
+  - id: gost
+    package_name: "gost"
+    description: "GoST - Go Sign Tool for code signing"
+    vendor: "OSSign"
+    maintainer: OSSign <contact@ossign.org>
+    file_name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}amd64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    formats:
+      - deb
+      - apk
+      - rpm
+    bindir: /usr/local/bin
+
+release:
+  github:
+    owner: ossign
+    name: gost
+
+# dockers:
+#   - use: docker
+#     dockerfile: Dockerfile
+#     image_templates:
+#     - clysec/gost:{{ .Tag }}
+#     - clysec/gost:latest
+#     - ghcr.io/clysec/gost:{{ .Tag }}
+#     - ghcr.io/clysec/gost:latest
+
+uploads:
+  - name: "debpkg"
+    method: "PUT"
+    exts:
+      - deb
+    mode: archive
+    username: "ossign-dev"
+    target: https://pkg.ossign.org/debian/pool/all/main/upload
+    custom_artifact_name: true
+  
+  - name: "apkpkg"
+    method: "PUT"
+    exts:
+      - apk
+    mode: archive
+    username: "ossign-dev"
+    target: https://pkg.ossign.org/alpine/all/repository
+    custom_artifact_name: true
+  
+  - name: "rpmpkg"
+    method: "PUT"
+    exts:
+      - rpm
+    mode: archive
+    username: "ossign-dev"
+    target: https://pkg.ossign.org/rpm/upload
+    custom_artifact_name: true
