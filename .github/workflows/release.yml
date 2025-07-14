@@ -26,7 +26,6 @@ jobs:
         args: release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        UPLOAD_DEBPKG_USER: "ossign-dev"
         UPLOAD_DEBPKG_SECRET: ${{ secrets.PACKAGE_REPO_SECRET }}
         UPLOAD_APKPKG_SECRET: ${{ secrets.PACKAGE_REPO_SECRET }}
         UPLOAD_RPMPKG_SECRET: ${{ secrets.PACKAGE_REPO_SECRET }}

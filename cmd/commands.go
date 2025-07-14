@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ossign/gost/lib"
-	"github.com/ossign/gost/lib/constants"
+	"github.com/ossign/goest/lib"
+	"github.com/ossign/goest/lib/constants"
 
 	"github.com/sassoftware/relic/v8/cmdline/shared"
 	"github.com/sassoftware/relic/v8/config"

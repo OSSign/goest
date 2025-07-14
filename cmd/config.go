@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/ossign/gost/lib/constants"
-	"github.com/ossign/gost/lib/vaults"
+	"github.com/ossign/goest/lib/constants"
+	"github.com/ossign/goest/lib/vaults"
 	"github.com/spf13/viper"
 )
 

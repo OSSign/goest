@@ -6,15 +6,15 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ossign/gost/lib"
-	"github.com/ossign/gost/lib/constants"
+	"github.com/ossign/goest/lib"
+	"github.com/ossign/goest/lib/constants"
 	"github.com/spf13/cobra"
 )
 
 var configFile string
 
 var rootCmd = &cobra.Command{
-	Use:   "gost",
+	Use:   "goest",
 	Short: "Go SignTool - A cross-platform tool for code signing",
 	Long:  "Go SignTool is a cross-platform tool for code signing based on Relic from sassoftware.",
 	Run: func(cmd *cobra.Command, args []string) {
@@ -28,7 +28,7 @@ var rootCmd = &cobra.Command{
 
 			Viper.SetConfigFile(configFile)
 			Viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
-			Viper.SetEnvPrefix("gost")
+			Viper.SetEnvPrefix("goest")
 			Viper.AutomaticEnv()
 
 			if err := Viper.ReadInConfig(); err != nil {

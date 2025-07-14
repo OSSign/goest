@@ -35,9 +35,9 @@ changelog:
       - "^test:"
 
 nfpms:
-  - id: gost
-    package_name: "gost"
-    description: "GoST - Go Sign Tool for code signing"
+  - id: goest
+    package_name: "goest"
+    description: "goest - Go Sign Tool for code signing"
     vendor: "OSSign"
     maintainer: OSSign <contact@ossign.org>
     file_name_template: >-
@@ -56,16 +56,16 @@ nfpms:
 release:
   github:
     owner: ossign
-    name: gost
+    name: goest
 
 # dockers:
 #   - use: docker
 #     dockerfile: Dockerfile
 #     image_templates:
-#     - clysec/gost:{{ .Tag }}
-#     - clysec/gost:latest
-#     - ghcr.io/clysec/gost:{{ .Tag }}
-#     - ghcr.io/clysec/gost:latest
+#     - clysec/goest:{{ .Tag }}
+#     - clysec/goest:latest
+#     - ghcr.io/clysec/goest:{{ .Tag }}
+#     - ghcr.io/clysec/goest:latest
 
 uploads:
   - name: "debpkg"

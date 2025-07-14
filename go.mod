@@ -1,4 +1,4 @@
-module github.com/ossign/gost
+module github.com/ossign/goest
 
 go 1.24.2
 
