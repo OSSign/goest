@@ -38,7 +38,7 @@ jobs:
         sudo curl https://pkg.ossign.org/debian/repository.key -o /etc/apt/keyrings/gitea-ossign.asc
         echo "deb [signed-by=/etc/apt/keyrings/gitea-ossign.asc] https://pkg.ossign.org/debian all main" | sudo tee /etc/apt/sources.list.d/ossign.list
         sudo apt-get update
-        sudo apt-get install -y goast
+        sudo apt-get install -y goest
 
         echo '${{ secrets.GOEST_CONFIG }}' >> config.yaml
 
