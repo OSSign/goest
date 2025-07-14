@@ -35,10 +35,10 @@ jobs:
     
     - name: Install dependencies
       run: |
-        curl https://pkg.ossign.org/debian/repository.key -o /etc/apt/keyrings/gitea-ossign.asc
-        echo "deb [signed-by=/etc/apt/keyrings/gitea-ossign.asc] https://pkg.ossign.org/debian all main" >> /etc/apt/sources.list.d/ossign.list
-        apt-get update
-        apt-get install -y goast
+        sudo curl https://pkg.ossign.org/debian/repository.key -o /etc/apt/keyrings/gitea-ossign.asc
+        echo "deb [signed-by=/etc/apt/keyrings/gitea-ossign.asc] https://pkg.ossign.org/debian all main" | sudo tee /etc/apt/sources.list.d/ossign.list
+        sudo apt-get update
+        sudo apt-get install -y goast
 
     - name: Goreleaser
       uses: goreleaser/goreleaser-action@v6
