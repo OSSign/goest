@@ -1,21 +1,15 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"strings"
 
 	"github.com/ossign/gost/lib"
+	"github.com/ossign/gost/lib/constants"
 	"github.com/spf13/cobra"
 )
-
-var signers []string = []string{
-	"appx", "cab", "cat", "deb", "jar", "msi", "pecoff", "pgp", "pkcs", "ps", "rpm", "vsix", "xap",
-}
-
-var timestampUrls []string = []string{
-	"http://timestamp.globalsign.com/tsa/advanced",
-}
 
 var configFile string
 
@@ -32,39 +26,33 @@ var rootCmd = &cobra.Command{
 		if configFile != "" {
 			fmt.Println("Using configuration file:", configFile)
 
-			lib.Viper.SetConfigFile(configFile)
-			lib.Viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
-			lib.Viper.SetEnvPrefix("gost")
-			lib.Viper.AutomaticEnv()
+			Viper.SetConfigFile(configFile)
+			Viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+			Viper.SetEnvPrefix("gost")
+			Viper.AutomaticEnv()
 
-			if err := lib.Viper.ReadInConfig(); err != nil {
+			if err := Viper.ReadInConfig(); err != nil {
 				fmt.Fprintf(os.Stderr, "Error reading config file: %v\n", err)
 				os.Exit(1)
 			}
 
-			fmt.Printf("Using config file: %s\n", lib.Viper.ConfigFileUsed())
+			fmt.Printf("Using config file: %s\n", Viper.ConfigFileUsed())
 
-			if err := lib.Viper.Unmarshal(&lib.GlobalConfig); err != nil {
+			if err := Viper.Unmarshal(&GlobalConfig); err != nil {
 				fmt.Fprintf(os.Stderr, "Error unmarshalling config: %v\n", err)
 				os.Exit(1)
 			}
 
-			lib.RegisterSigners(signers)
+			lib.RegisterSigners(defaultSigners)
 		}
+
+		cmd.SetContext(context.WithValue(cmd.Context(), constants.ConfigKeyGlobalConfig, GlobalConfig))
+		cmd.SetContext(context.WithValue(cmd.Context(), constants.ConfigKeyViper, Viper))
 	},
 }
 
-func initFlags() {
-	rootCmd.PersistentFlags().StringVarP(&configFile, "config", "f", "", "Path to a configuration file (optional)")
-	rootCmd.PersistentFlags().StringSliceVarP(&signers, "signers", "", signers, "List of signers to enable (default: all available signers)")
-	rootCmd.PersistentFlags().StringSliceVar(&timestampUrls, "timestampUrls", timestampUrls, "List of timestamp URLs to use for signing (optional, default http://timestamp.globalsign.com/tsa/advanced)")
-
-	lib.Viper.BindPFlag("signers", rootCmd.PersistentFlags().Lookup(("signers")))
-	lib.Viper.BindPFlag("timestampUrls", rootCmd.PersistentFlags().Lookup("timestampUrls"))
-}
-
 func main() {
-	lib.InitConfig()
+	initConfig()
 	initFlags()
 
 	RegisterCommands()

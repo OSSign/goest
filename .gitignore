@@ -39,5 +39,10 @@ go.work.sum
 !*.example.yaml
 !*.example.json
 !*.example.ini
+!goreleaser.yaml
 
 *.ps1
+
+tests/signable/*-signed.*
+
+__debug*
