@@ -19,3 +19,9 @@ type SigningConfig struct {
 	AzureKeyVault  Vault    `mapstructure:"azurekv"`
 	OutSuffix      string   `mapstructure:"outSuffix"`
 }
+
+type NoPassPrompt struct{}
+
+func (NoPassPrompt) GetPasswd(prompt string) (string, error) {
+	return "", nil
+}

@@ -8,19 +8,14 @@ import (
 
 	"github.com/ossign/gost/lib"
 	"github.com/ossign/gost/lib/constants"
-	"github.com/ossign/gost/lib/override/open"
+
 	"github.com/sassoftware/relic/v8/cmdline/shared"
 	"github.com/sassoftware/relic/v8/config"
 	"github.com/sassoftware/relic/v8/lib/x509tools"
 	"github.com/sassoftware/relic/v8/signers"
+	"github.com/sassoftware/relic/v8/token/open"
 	"github.com/spf13/cobra"
 )
-
-type NoPassPrompt struct{}
-
-func (NoPassPrompt) GetPasswd(prompt string) (string, error) {
-	return "", nil // No password prompt, return empty string
-}
 
 func RegisterCommands() {
 	sign := &cobra.Command{
@@ -66,8 +61,7 @@ func RegisterCommands() {
 
 				hash := x509tools.HashByName("SHA-256")
 
-				token, err := open.Token(shared.CurrentConfig, vault.GetType(), new(NoPassPrompt))
-
+				token, err := open.Token(shared.CurrentConfig, vault.GetType(), new(constants.NoPassPrompt))
 				if err != nil {
 					panic(err)
 				}
