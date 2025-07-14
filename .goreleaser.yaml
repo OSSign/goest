@@ -66,6 +66,7 @@ binary_signs:
     ids:
       - winbuild
     cmd: goest
+    signature: "${artifact}"
     args:
       - sign
       - azurekv

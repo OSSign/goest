@@ -2,6 +2,7 @@ name: Build and Publish Packages
 
 on:
   push:
+    branches: ["main"]
     tags: ["*.*.*"]
 
 
@@ -44,9 +45,22 @@ jobs:
 
     - name: Goreleaser
       uses: goreleaser/goreleaser-action@v6
+      if: ${{ github.ref_name != 'main' }}
       with:
         version: ${{ github.event.release.tag.name }}
         args: release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        UPLOAD_DEBPKG_SECRET: ${{ secrets.PACKAGE_REPO_SECRET }}
+        UPLOAD_APKPKG_SECRET: ${{ secrets.PACKAGE_REPO_SECRET }}
+        UPLOAD_RPMPKG_SECRET: ${{ secrets.PACKAGE_REPO_SECRET }}
+      
+    - name: Goreleaser
+      uses: goreleaser/goreleaser-action@v6
+      if: ${{ github.ref_name == 'main' }}
+      with:
+        version: ${{ github.event.release.tag.name }}
+        args: release --snapshot --clean
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         UPLOAD_DEBPKG_SECRET: ${{ secrets.PACKAGE_REPO_SECRET }}
