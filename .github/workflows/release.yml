@@ -84,6 +84,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: release
+          path: dist/
     
       - name: Login to ghcr.io
         uses: docker/login-action@v2
