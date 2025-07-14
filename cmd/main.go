@@ -28,7 +28,7 @@ var rootCmd = &cobra.Command{
 
 			Viper.SetConfigFile(configFile)
 			Viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
-			Viper.SetEnvPrefix("goest")
+			Viper.SetEnvPrefix("GOEST")
 			Viper.AutomaticEnv()
 
 			if err := Viper.ReadInConfig(); err != nil {

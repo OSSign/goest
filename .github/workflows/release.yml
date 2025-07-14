@@ -18,6 +18,27 @@ jobs:
       with:
         go-version: 1.24.2
         cache-dependency-path: go.mod
+    
+    - name: Login to ghcr.io
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ossign
+        password: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Login to docker hub
+      uses: docker/login-action@v2
+      with:
+        registry: docker.io
+        username: ossign
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
+    
+    - name: Install dependencies
+      run: |
+        curl https://pkg.ossign.org/debian/repository.key -o /etc/apt/keyrings/gitea-ossign.asc
+        echo "deb [signed-by=/etc/apt/keyrings/gitea-ossign.asc] https://pkg.ossign.org/debian all main" >> /etc/apt/sources.list.d/ossign.list
+        apt-get update
+        apt-get install -y goast
 
     - name: Goreleaser
       uses: goreleaser/goreleaser-action@v6
@@ -36,4 +57,3 @@ jobs:
         name: release
         path: dist/**
 
-  

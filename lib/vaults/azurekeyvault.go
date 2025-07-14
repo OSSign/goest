@@ -35,17 +35,17 @@ func (v *AzureKeyVault) GetCommand() *cobra.Command {
 			}
 
 			if v.Url == "" {
-				fmt.Println("Azure Key Vault URL is required. Use --url, -u or env goest_AZUREKV_URL to specify the URL. Example: --url https://myvault.vault.azure.net/certificates/MyCertificate/1234567890abcdef1234567890abcdef")
+				fmt.Println("Azure Key Vault URL is required. Use --url, -u or env GOEST_AZUREKV_URL to specify the URL. Example: --url https://myvault.vault.azure.net/certificates/MyCertificate/1234567890abcdef1234567890abcdef")
 			}
 
 			if v.Tenant == "" {
-				fmt.Println("Azure Tenant ID is required. Use --tenant, -t or env goest_AZUREKV_TENANT to specify the Tenant ID. Example: --tenant 12345678-1234-1234-1234-123456789012")
+				fmt.Println("Azure Tenant ID is required. Use --tenant, -t or env GOEST_AZUREKV_TENANT to specify the Tenant ID. Example: --tenant 12345678-1234-1234-1234-123456789012")
 			}
 			if v.Client == "" {
-				fmt.Println("Azure Client ID is required. Use --client, -c or env goest_AZUREKV_CLIENT to specify the Client ID. Example: --client 12345678-1234-1234-1234-123456789012")
+				fmt.Println("Azure Client ID is required. Use --client, -c or env GOEST_AZUREKV_CLIENT to specify the Client ID. Example: --client 12345678-1234-1234-1234-123456789012")
 			}
 			if v.Secret == "" {
-				fmt.Println("Azure Key Vault Secret Name is required. Use --secret, -s or goest_AZUREKV_SECRET to specify the Secret Name. Example: --secret MySecretName")
+				fmt.Println("Azure Key Vault Secret Name is required. Use --secret, -s or GOEST_AZUREKV_SECRET to specify the Secret Name. Example: --secret MySecretName")
 			}
 
 			if len(args) == 0 {

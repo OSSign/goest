@@ -51,10 +51,10 @@ To sign a file with Azure Key Vault, use the following command:
 goest sign azurekv --url https://<your-key-vault-name>.vault.azure.net/certificates/your-certificate/certificate-hash/ --tenant <your-tenant-uuid> --client <your-client-id> --secret <your-client-secret> file1.ps1 file2.exe file3.dll
 
 # Using environment variables
-export goest_AZUREKV_URL="https://<your-key-vault-name>.vault.azure.net/certificates/your-certificate/certificate-hash/"
-export goest_AZUREKV_TENANT="<your-tenant-uuid>"
-export goest_AZUREKV_CLIENT="<your-client-id>"
-export goest_AZUREKV_SECRET="<your-client-secret>"
+export GOEST_AZUREKV_URL="https://<your-key-vault-name>.vault.azure.net/certificates/your-certificate/certificate-hash/"
+export GOEST_AZUREKV_TENANT="<your-tenant-uuid>"
+export GOEST_AZUREKV_CLIENT="<your-client-id>"
+export GOEST_AZUREKV_SECRET="<your-client-secret>"
 
 goest sign azurekv file1.ps1 file2.exe file3.dll
 

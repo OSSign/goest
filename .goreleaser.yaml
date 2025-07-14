@@ -6,8 +6,16 @@ builds:
       - CGO_ENABLED=0
     goos:
       - linux
-      - windows
       - darwin
+    goarch:
+      - amd64
+      - arm64
+  - id: winbuild
+    main: ./cmd/
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - windows
     goarch:
       - amd64
       - arm64
@@ -53,6 +61,18 @@ nfpms:
       - rpm
     bindir: /usr/local/bin
 
+binary_signs:
+  - id: goest
+    ids:
+      - winbuild
+    cmd: goest
+    args:
+      - sign
+      - azurekv
+      - --config
+      - ./config.yaml
+      - ${artifact}
+
 release:
   github:
     owner: ossign
@@ -65,21 +85,47 @@ dockers:
     goarch: amd64
     dockerfile: Dockerfile
     image_templates:
-    - ghcr.io/ossign/goest:{{ .Tag }}
+    - ghcr.io/ossign/goest:{{ .Tag }}-linux-amd64
+    - ossign/goest:{{ .Tag }}-linux-amd64
   - id: goest-linux-arm64
     use: docker
     goos: linux
     goarch: arm64
     dockerfile: Dockerfile
     image_templates:
-    - ghcr.io/ossign/goest:{{ .Tag }}-arm64
+    - ghcr.io/ossign/goest:{{ .Tag }}-linux-arm64
+    - ossign/goest:{{ .Tag }}-linux-arm64
   - id: goest-windows-amd64
     use: docker
     goos: windows
     goarch: amd64
     dockerfile: windows.Dockerfile
     image_templates:
+    - ghcr.io/ossign/goest:{{ .Tag }}-windows-amd64
     - ghcr.io/ossign/goest:{{ .Tag }}-windows
+    - ossign/goest:{{ .Tag }}-windows-amd64
+    - ossign/goest:{{ .Tag }}-windows
+
+docker_manifests:
+  - name_template: ghcr.io/ossign/goest:latest
+    image_templates:
+      - ghcr.io/ossign/goest:{{ .Tag }}-linux-amd64
+      - ghcr.io/ossign/goest:{{ .Tag }}-linux-arm64
+  
+  - name_template: ghcr.io/ossign/goest:{{ .Tag }}
+    image_templates:
+      - ghcr.io/ossign/goest:{{ .Tag }}-linux-amd64
+      - ghcr.io/ossign/goest:{{ .Tag }}-linux-arm64
+  
+  - name_template: ossign/goest:latest
+    image_templates:
+      - ossign/goest:{{ .Tag }}-linux-amd64
+      - ossign/goest:{{ .Tag }}-linux-arm64
+  
+  - name_template: ossign/goest:{{ .Tag }}
+    image_templates:
+      - ossign/goest:{{ .Tag }}-linux-amd64
+      - ossign/goest:{{ .Tag }}-linux-arm64
 
 uploads:
   - name: "debpkg"
