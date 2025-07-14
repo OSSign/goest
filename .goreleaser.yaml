@@ -58,14 +58,28 @@ release:
     owner: ossign
     name: goest
 
-# dockers:
-#   - use: docker
-#     dockerfile: Dockerfile
-#     image_templates:
-#     - clysec/goest:{{ .Tag }}
-#     - clysec/goest:latest
-#     - ghcr.io/clysec/goest:{{ .Tag }}
-#     - ghcr.io/clysec/goest:latest
+dockers:
+  - id: goest-linux-amd64
+    use: docker
+    goos: linux
+    goarch: amd64
+    dockerfile: Dockerfile
+    image_templates:
+    - ghcr.io/ossign/goest:{{ .Tag }}
+  - id: goest-linux-arm64
+    use: docker
+    goos: linux
+    goarch: arm64
+    dockerfile: Dockerfile
+    image_templates:
+    - ghcr.io/ossign/goest:{{ .Tag }}-arm64
+  - id: goest-windows-amd64
+    use: docker
+    goos: windows
+    goarch: amd64
+    dockerfile: windows.Dockerfile
+    image_templates:
+    - ghcr.io/ossign/goest:{{ .Tag }}-windows
 
 uploads:
   - name: "debpkg"
