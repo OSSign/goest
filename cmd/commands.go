@@ -8,11 +8,11 @@ import (
 
 	"github.com/ossign/gost/lib"
 	"github.com/ossign/gost/lib/constants"
+	"github.com/ossign/gost/lib/override/open"
 	"github.com/sassoftware/relic/v8/cmdline/shared"
 	"github.com/sassoftware/relic/v8/config"
 	"github.com/sassoftware/relic/v8/lib/x509tools"
 	"github.com/sassoftware/relic/v8/signers"
-	"github.com/sassoftware/relic/v8/token/open"
 	"github.com/spf13/cobra"
 )
 
