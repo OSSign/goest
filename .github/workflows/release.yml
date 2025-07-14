@@ -20,7 +20,7 @@ jobs:
         cache-dependency-path: go.mod
 
     - name: Goreleaser
-      uses: goreleaser/goreleaser-action@v2
+      uses: goreleaser/goreleaser-action@v6
       with:
         version: ${{ github.event.release.tag.name }}
         args: release
