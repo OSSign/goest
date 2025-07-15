@@ -41,6 +41,7 @@ go.work.sum
 !*.example.ini
 !.goreleaser.yaml
 !.github/workflows/**
+!.devcontainer/** */
 
 *.ps1
 
@@ -49,3 +50,6 @@ tests/signable/*-signed.*
 __debug*
 
 dist/
+
+node/*.wasm
+node/wasm_exec.js

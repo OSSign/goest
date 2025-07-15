@@ -1,5 +1,5 @@
-//go:build !wasm
-// +build !wasm
+//go:build wasm
+// +build wasm
 
 package lib
 
@@ -21,7 +21,6 @@ import (
 	"github.com/sassoftware/relic/v8/signers/pgp"
 	"github.com/sassoftware/relic/v8/signers/pkcs"
 	"github.com/sassoftware/relic/v8/signers/ps"
-	"github.com/sassoftware/relic/v8/signers/rpm"
 
 	"github.com/sassoftware/relic/v8/signers/vsix"
 	"github.com/sassoftware/relic/v8/signers/xap"
@@ -40,7 +39,6 @@ var registerSigners = map[string]*signers.Signer{
 	"pgp":         pgp.PgpSigner,
 	"pkcs":        pkcs.PkcsSigner,
 	"ps":          ps.PsSigner,
-	"rpm":         rpm.RpmSigner,
 	"vsix":        vsix.Signer,
 	"xap":         xap.XapSigner,
 }
